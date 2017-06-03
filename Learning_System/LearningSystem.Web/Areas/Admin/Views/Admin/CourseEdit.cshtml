@@ -1,0 +1,22 @@
+﻿@model LearningSystem.Models.ViewModels.EditCourseViewModel
+@{
+    ViewBag.Title = "Edit course: " + Model.Name;
+}
+
+<h2>@ViewBag.Title</h2>
+
+<form class="navbar-form navbar-left" method="Post">
+    <div class="form-group">
+        @Html.Label("Course name: ")
+        <input type="text" id="@Model.Id" name="@Model.Id" hidden="hidden">
+        <input type="text" class="form-control" name="Name" id="Name" placeholder="Enter new course name">
+    </div><br /> <br />
+    <div class="form-group">
+        @Html.Label("Description: ") <br />
+        <textarea style="width:250px;height:150px;" name="Description" id="Description" placeholder="Enter description"></textarea>
+    </div> <br /><br />
+    <div>
+        <button type="submit" class="btn btn-primary" value="Edit">Submit</button>
+    </div>
+</form>
+<br />

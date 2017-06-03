@@ -1,0 +1,85 @@
+﻿@using Blog.Models.ViewModels.Posts
+@model PostsViewModel
+@{
+    ViewBag.Title = "View Posts";
+}
+
+<div class="col-md-9">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h2 class="h3">
+                <strong> @Model.Title</strong>
+            </h2>
+        </div>
+        <div class="panel-body">
+            <div class="col-md-4">
+                @if (Model.ImageId != null)
+                {
+                    <img src="@Url.Action("Image", "Posts", new { id = Model.ImageId.Value })" a alt="@Model.Title" class="img-responsive" />
+                }
+            </div>
+            <p class="post-content" style="word-wrap: break-word">
+                @Model.Content
+            </p>
+            <hr>
+            <div>
+                <div class="h4">
+                    Tags:
+                    @foreach (var p in Model.Tags)
+                    {
+                        <span class="label label-primary">
+                            <a class="post-tag post-tag-color" href="/Posts/Search?tagName=@p.Name">@p.Name</a>
+                        </span>@:&nbsp;
+                    }
+                    &nbsp;
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="panel panel-default post-meta">
+                            <div class="panel-body ">
+                                <ul class="post-meta list-unstyled list-inline">
+                                    <li>Posted on: 2017-03-10 08:25:00</li>
+                                    <li>Author: <strong>admin</strong></li>
+                                    <li>Viewed: 97 times</li>
+                                </ul>
+
+                                <ul class="post-meta list-unstyled list-inline">
+                                    <li class="text-muted"><em>Updated on: 2017-05-03 22:30:39</em></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-md-6">
+                    Comments (@Model.Comments.Count())
+                </div>
+                <div class="col-md-6 text-right">
+
+                    <a class="btn btn-sm btn-default" href="/Comments/add/@Model.Id">
+                        <span>
+                            <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add Comment
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div id="comments">
+            @foreach (var comment in Model.Comments)
+            {
+                @Html.Partial("_CommentPartial", comment)
+            }
+        </div>
+    </div>
+</div>
+
+@section css{
+    <link href="@Url.Content("~/Content/my-Stylesheet.css")" rel="stylesheet" />
+}

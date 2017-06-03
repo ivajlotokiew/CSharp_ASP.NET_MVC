@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Blog.Models.EntityModels.User>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Make user Editor</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @using (Html.BeginForm("Editor", "Users", FormMethod.Post))
+                {
+                    @Html.Hidden("id", item.Id)
+                    <input type="submit" value="Make Editor" />
+
+                }
+            </td>
+        </tr>
+    }
+
+</table>

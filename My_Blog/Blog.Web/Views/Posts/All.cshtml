@@ -1,0 +1,113 @@
+﻿@model Blog.Models.ViewModels.Paging.PaginationPostsByCategoryIdViewModel
+@{
+    ViewBag.Title = "Posts";
+}
+<div class="col-md-9">
+    @foreach (var post in Model.Posts)
+            {
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h2 class="h3">
+                    <strong>
+                        <a href="/posts/view/@post.Id">
+                            @post.Title
+                        </a>
+                    </strong>
+                </h2>
+                <hr>
+                <p class="post-content" style="word-wrap: break-word">
+                    @post.Content
+                </p>
+                <hr>
+                <div>
+                    <div class="h4">
+                        Tags:
+                        @foreach (var p in post.Tags)
+                        {
+                            <span class="label label-primary">
+                                <a class="post-tag post-tag-color" href="/Posts/Search?tagName=@p.Name">@p.Name</a>
+                            </span> @:&nbsp;
+                        }
+
+                    </div>
+                </div>
+                <div class="text-right">
+                    <div class="h5">
+                        Comments: @post.Comments.Count() &nbsp;
+                        <a href="/comments/add/@post.Id">
+                            <span>
+                                <span class="glyphicon glyphicon-plus-sign text-success" aria-hidden="true"></span>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="panel panel-default post-meta">
+                            <div class="panel-body ">
+                                <ul class="post-meta list-unstyled list-inline">
+                                    <li>Posted on: @post.PostedOn</li>
+                                    <li>Author: <strong>@post.AuthorName</strong></li>
+                                    <li>Viewed: @post.Views</li>
+                                </ul>
+
+                                <ul class="post-meta list-unstyled list-inline">
+                                    <li class="text-muted"><em>Updated on: @post.UpdatedOn</em></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <nav aria-label="Page navigation" style="text-align: center">
+        <ul class="pagination">
+            @if (Model.CurrentPage > 1)
+            {
+                <li>
+                    <a href="/Posts/All/@(Model.CurrentPage - 1)?CategoryId=@Model.CategoryId" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            }
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                var className = string.Empty;
+                if (Model.CurrentPage == i)
+                {
+                    className = "active";
+                }
+
+                <li class="@className"><a href="/Posts/All/@i?CategoryId=@Model.CategoryId">@i</a></li>
+            }
+            @if (Model.CurrentPage < Model.TotalPages)
+            {
+                <li>
+                    <a href="/Posts/All/@(Model.CurrentPage + 1)?CategoryId=@Model.CategoryId" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            }
+        </ul>
+    </nav>
+
+
+</div>
+
+@section categoriesDropDown{
+
+    @using (Html.BeginForm("All", "Posts", FormMethod.Get))
+    {
+        <h2>Categories</h2>
+        @Html.DropDownListFor(m => m.CategoryId, Model.Categories)<br />
+        <input type="submit" value="Choose" class="btn btn-primary" />
+    }
+}
+
+@section css{
+    <link href="@Url.Content("~/Content/my-Stylesheet.css")" rel="stylesheet" />
+}

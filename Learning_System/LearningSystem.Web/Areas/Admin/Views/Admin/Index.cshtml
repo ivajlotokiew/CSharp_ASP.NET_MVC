@@ -1,0 +1,50 @@
+﻿@model LearningSystem.Models.ViewModels.AdminAreaViewModel
+@{
+    ViewBag.Title = "Admin Info";
+}
+
+<h1>@ViewBag.Title</h1>
+
+<div class="table-responsive col-md-6">
+    <table class="table table-striped">
+        <tr>
+            <th>All Courses</th>
+        </tr>
+
+        @foreach (var course in Model.Courses)
+        {
+            <tr>
+                <td>
+                    @course.Name
+                </td>
+                <td>
+                    <a href="/Admin/CourseEdit/@course.Id">
+                        Edit
+                    </a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+<div class="table-responsive col-md-6">
+    <table class="table table-striped">
+        <tr>
+            <th>All Users</th>
+        </tr>
+
+        @foreach (var user in Model.Users)
+        {
+            <tr>
+                <td>
+                    @user.Username
+                </td>
+                <td>
+                    <a href="/Admin/Edit">
+                        Edit
+                    </a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>

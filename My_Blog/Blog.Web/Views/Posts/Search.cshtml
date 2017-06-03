@@ -1,0 +1,71 @@
+﻿@model Blog.Models.ViewModels.Posts.PostsByTagViewModel
+@{
+    ViewBag.Title = "Search by tag";
+}
+
+<div class="col-md-9">
+    @foreach (var post in Model.Posts)
+            {
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h2 class="h3">
+                    <strong>
+                        <a href="/posts/view/@post.Id">
+                            @post.Title
+                        </a>
+                    </strong>
+                </h2>
+                <hr>
+                <p class="post-content" style="word-wrap: break-word">
+                    @post.Content
+                </p>
+                <hr>
+                <div>
+                    <div class="h4">
+                        Tags:
+                        @foreach (var p in post.Tags)
+                        {
+                            <span class="label label-primary">
+                                <a class="post-tag" href="/Posts/Search?tagName=@p.Name">@p.Name</a>
+                            </span>
+                        }
+                        &nbsp;
+                    </div>
+                </div>
+                <div class="text-right">
+                    <div class="h5">
+                        Comments: @post.Comments.Count()&nbsp;
+                        <a href="/comments/add/@post.Id">
+                            <span>
+                                <span class="glyphicon glyphicon-plus-sign text-success" aria-hidden="true"></span>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="panel panel-default post-meta">
+                            <div class="panel-body ">
+                                <ul class="post-meta list-unstyled list-inline">
+                                    <li>Posted on: @post.PostedOn</li>
+                                    <li>Author: <strong>@post.AuthorName</strong></li>
+                                    <li>Viewed: @post.Views</li>
+                                </ul>
+
+                                <ul class="post-meta list-unstyled list-inline">
+                                    <li class="text-muted"><em>Updated on: @post.UpdatedOn</em></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section css{
+    <link href="@Url.Content("~/Content/my-Stylesheet.css")" rel="stylesheet" />
+}

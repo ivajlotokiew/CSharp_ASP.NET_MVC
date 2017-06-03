@@ -1,0 +1,15 @@
+﻿@model IEnumerable<Blog.Models.ViewModels.Posts.PostsSortedByViewModel>
+@{
+    ViewBag.Title = "PostsSortedBy";
+}
+
+<h2>Most Viewed</h2>
+@foreach (var post in Model)
+{
+    <span class="list-group-item" style="word-wrap: break-word">
+        <span class="badge">@post.Views</span>
+        <a href="/posts/view/@post.Id">
+            @post.Title
+        </a>
+    </span>
+}

@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Blog</title>
+    @Styles.Render("~/Content/css")
+    @RenderSection("css", required: false)
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Blog", "Index", "Home", new { area = string.Empty }, new { @class = "navbar-brand glyphicon glyphicon-globe" })
+            </div>
+            <form class="navbar-form navbar-left" name="searchField" role="search" method="get" action="/Posts/Search">
+                <div class="form-group">
+                    <input type="text" name="tagName" class="form-control" placeholder="Find posts by tag">
+                </div>
+                <button type="submit" class="btn btn-default" name="search">Search</button>
+            </form>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = string.Empty }, null)</li>
+                    <li>@Html.ActionLink("Posts", "All", "Posts", new { area = string.Empty }, null)</li>
+                    @if (User.IsInRole(GlobalConstants.AdminRole))
+                    {
+                        <li style="padding-top:15px; padding-bottom: 15px; color:red">Administration</li>
+                        <li>@Html.ActionLink("Edit Posts", "Index", "Posts", new { area = "Administration" }, null)</li>
+                        <li>@Html.ActionLink("Create Post", "Create", "Posts", new { area = "Administration" }, null)</li>
+                        <li>@Html.ActionLink("Edit Users", "Index", "Users", new { area = "Administration" }, null)</li>
+                    }
+                    @if (User.IsInRole(GlobalConstants.EditorRole))
+                    {
+                        <li style="padding-top:15px; padding-bottom: 15px; color:antiquewhite">Editor</li>
+                        <li>@Html.ActionLink("Edit Posts", "Index", "Posts", new { area = "Administration" }, null)</li>
+                    }
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer class="text-center">
+            <p>&copy; @DateTime.Now.Year - Blog</p>
+        </footer>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

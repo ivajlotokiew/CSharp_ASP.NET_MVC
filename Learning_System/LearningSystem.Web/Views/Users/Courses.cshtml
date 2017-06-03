@@ -1,0 +1,18 @@
+﻿@model IEnumerable<LearningSystem.Models.ViewModels.UserCoursesViewModel>
+@{
+    ViewBag.Title = "Courses";
+}
+
+<h2>Courses</h2>
+
+@foreach (var course in Model)
+{
+    @Html.Label("Name")
+    @Html.DisplayFor(x => course.Name)
+    <br />
+    @Html.Label("Description")
+    @Html.DisplayFor(x => course.Description)
+}
+
+<br />
+@Html.ActionLink("Home", "Index", "Home")

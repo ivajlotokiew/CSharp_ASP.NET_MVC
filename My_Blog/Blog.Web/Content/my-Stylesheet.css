@@ -1,0 +1,6 @@
+﻿a.post-tag-color, 
+a.post-tag-color:visited,
+a.post-tag-color:active,
+a.post-tag-color:hover {
+    color: white;
+}

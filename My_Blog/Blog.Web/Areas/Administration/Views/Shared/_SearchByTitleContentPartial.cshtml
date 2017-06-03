@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Blog.Models.ViewModels.Posts.PostsViewModel>
+
+<div class="row">
+    <div class="col-md-3">
+        <h3>Author</h3>
+    </div>
+    <div class="col-md-3">
+        <h3>Title</h3>
+    </div>
+    <div class="col-md-4">
+        <h3>Content</h3>
+    </div>
+</div>
+
+@foreach (var post in Model)
+{
+    <div class="row">
+        <div class="col-md-3">
+            <h5 style="word-wrap: break-word">@post.AuthorName</h5>
+        </div>
+        <div class="col-md-3">
+            <h5 style="word-wrap: break-word">@post.Title</h5>
+        </div>
+        <div class="col-md-4">
+            <h5 style="word-wrap: break-word">@post.Content...</h5>
+        </div>
+        <div class="col-md-1">
+            @Html.ActionLink("Edit", "Edit", new { id = post.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = post.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = post.Id })
+        </div>
+    </div> <br />
+}

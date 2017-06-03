@@ -1,0 +1,20 @@
+﻿@model Blog.Models.ViewModels.Comment.CommentViewModel
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        @if (Model.GuestName == null)
+        {
+            <strong>@Model.AuthorName</strong>
+            <span>(@Model.Email)</span>
+        }
+        else
+        {
+            <strong>@Model.GuestName</strong>
+            <span>(@Model.GuestEmail)</span>
+        }
+
+        Posted on: @Model.CreatedOn
+        <hr>
+        <p style="word-wrap: break-word">@Model.Content</p>
+    </div>
+</div>

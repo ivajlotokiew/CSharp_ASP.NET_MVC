@@ -1,0 +1,28 @@
+﻿@model LearningSystem.Models.ViewModels.DetailsCourseViewModel
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+@Html.Label("Name")
+@Html.DisplayFor(x => Model.Name)
+<br />
+@Html.Label("Description")
+@Html.DisplayFor(x => Model.Description)
+<br />
+@Html.Label("Start Date")
+@Html.DisplayFor(x => Model.StartDate)
+<br />
+@Html.Label("End Date")
+@Html.DisplayFor(x => Model.EndDate)
+<br />
+@Html.ActionLink("Home", "Index", "Home")
+
+@if (User.Identity.IsAuthenticated && Model.StartDate > DateTime.Now)
+{
+    using (Html.BeginForm())
+    {
+        @Html.ActionLink("Sign Up/Out", "Courses", "Users", null, new { value = Model.Id })
+    }
+}

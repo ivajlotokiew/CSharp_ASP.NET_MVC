@@ -1,0 +1,19 @@
+﻿@model IEnumerable<Blog.Models.ViewModels.Posts.PostsViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Administration/Views/Shared/_Layout.cshtml";
+}
+
+@using (Ajax.BeginForm("SearchByTitleContent",
+    new AjaxOptions
+    {
+        UpdateTargetId = "results",
+        InsertionMode = InsertionMode.Replace
+    }))
+{
+    <input class="form-control" type="text" name="titleContent" placeholder="Search posts by title content" />
+    <input class="btn btn-primary" type="submit" value="Search"/>
+}
+
+<div id="results">@Html.Partial("_SearchByTitleContentPartial", Model)</div>
