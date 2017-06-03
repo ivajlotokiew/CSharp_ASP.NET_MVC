@@ -1,0 +1,77 @@
+﻿@model TicketingSystem.Models.ViewModels.Tickets.PageableListTicketViewModel
+@{
+    ViewBag.Title = "Tickets";
+}
+
+@using (Html.BeginForm("All", "Tickets", FormMethod.Get))
+{
+    @Html.LabelFor(m => m.CategoryId)<br />
+    @Html.DropDownListFor(m => m.CategoryId, Model.Categories)<br />
+    <input type="submit" value="Search" class="btn btn-default" />
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="row">
+    <div class="col-md-3">
+        <h3>Title</h3>
+    </div>
+    <div class="col-md-3">
+        <h3>Category</h3>
+    </div>
+    <div class="col-md-3">
+        <h3>Author</h3>
+    </div>
+    <div class="col-md-3">
+        <h3>Priority</h3>
+    </div>
+</div>
+
+@foreach (var ticket in Model.Tickets)
+{
+    <div class="row">
+        <div class="col-md-3">
+            <h5 style="word-wrap: break-word">@ticket.Title</h5>
+        </div>
+        <div class="col-md-3">
+            <h5 style="word-wrap: break-word">@ticket.Category</h5>
+        </div>
+        <div class="col-md-3">
+            <h5 style="word-wrap: break-word">@ticket.AuthorName</h5>
+        </div>
+        <div class="col-md-3">
+            <h5 style="word-wrap: break-word">@ticket.Priority</h5>
+        </div>
+    </div>
+}
+
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        @if (Model.CurrentPage > 1)
+            {
+            <li>
+                <a href="/Tickets/All/@(Model.CurrentPage - 1)?CategoryId=@Model.CategoryId" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+        }
+        @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                var className = string.Empty;
+                if (Model.CurrentPage == i)
+                {
+                    className = "active";
+                }
+
+                <li class="@className"><a href="/Tickets/All/@i?CategoryId=@Model.CategoryId">@i</a></li>
+        }
+        @if (Model.CurrentPage < Model.TotalPages)
+        {
+            <li>
+                <a href="/Tickets/All/@(Model.CurrentPage + 1)?CategoryId=@Model.CategoryId" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        }
+    </ul>
+</nav>

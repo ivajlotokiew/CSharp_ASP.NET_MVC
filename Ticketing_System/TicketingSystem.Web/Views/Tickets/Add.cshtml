@@ -1,0 +1,36 @@
+﻿@model TicketingSystem.Models.ViewModels.Tickets.AddTicketViewModel
+
+@{
+    ViewBag.Title = "Add Ticket";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("Add", "Tickets", FormMethod.Post, new { @class = "form", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.EditorFor(m => m.CategoryId, "DropDownList", new { ListItem = Model.Categories })<br />
+    @Html.EditorFor(m => m.Title, "SingleLineText")<br />
+    @Html.EditorFor(m => m.Description, "MultyLineText")<br />
+    @Html.EditorFor(m => m.Priority, "Enum")<br />
+
+
+    <div class="row">
+        <div class="col-md-2">
+            <strong>Image</strong>
+        </div>
+        <div class="col-md-5">
+            <input type="file" name="UploadedImage" />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-5 col-md-offset-2">
+            <input type="submit" class="btn btn-default" />
+        </div>
+    </div>
+}
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}   
