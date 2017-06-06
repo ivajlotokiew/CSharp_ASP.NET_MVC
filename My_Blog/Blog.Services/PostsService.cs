@@ -10,6 +10,11 @@
         public PostsViewModel GetPostsById(int id)
         {
             Post dbPost = this.Context.Posts.Find(id);
+            var orderedPostComments = dbPost
+                .Comments
+                .OrderByDescending(x => x.CreatedOn)
+                .ToList();
+            dbPost.Comments = orderedPostComments;
             dbPost.Views++;
             this.Context.SaveChanges();
             PostsViewModel vmPost = Mapper.Map<PostsViewModel>(dbPost);

@@ -51,8 +51,8 @@ namespace Blog.Data.Migrations
                     var post = new Post
                     {
                         Author = context.Users.First(x => x.UserName == GlobalConstants.AdminRole),
-                        Title = this.random.RandomString(5, 40),
-                        Content = this.random.RandomString(50, 500),
+                        Title = this.random.RandomString(5, 25),
+                        Content = this.random.RandomString(150, 300),
                         Image = image,
                         CreatedOn = DateTime.Now
                     };
@@ -62,7 +62,7 @@ namespace Blog.Data.Migrations
                         var comment = new Comment
                         {
                             Author = users[random.RandomNumber(0, users.Count - 1)],
-                            Content = this.random.RandomString(50, 200),
+                            Content = this.random.RandomString(110, 200),
                             CreatedOn = DateTime.Now
                         };
 

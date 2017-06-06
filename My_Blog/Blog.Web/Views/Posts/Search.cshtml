@@ -26,10 +26,9 @@
                         @foreach (var p in post.Tags)
                         {
                             <span class="label label-primary">
-                                <a class="post-tag" href="/Posts/Search?tagName=@p.Name">@p.Name</a>
-                            </span>
+                                <a class="post-tag post-tag-color" href="/Posts/Search?tagName=@p.Name">@p.Name</a>
+                            </span> @:&nbsp;
                         }
-                        &nbsp;
                     </div>
                 </div>
                 <div class="text-right">

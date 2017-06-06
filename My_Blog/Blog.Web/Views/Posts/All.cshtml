@@ -1,9 +1,10 @@
-﻿@model Blog.Models.ViewModels.Paging.PaginationPostsByCategoryIdViewModel
+﻿@using Blog.Models.ViewModels.Posts
+@model Blog.Models.ViewModels.Paging.PaginationPostsByCategoryIdViewModel<PostsByCategoryViewModel>
 @{
     ViewBag.Title = "Posts";
 }
 <div class="col-md-9">
-    @foreach (var post in Model.Posts)
+    @foreach (var post in Model.Attributes.Posts)
             {
         <div class="panel panel-default">
             <div class="panel-body">
@@ -28,7 +29,6 @@
                                 <a class="post-tag post-tag-color" href="/Posts/Search?tagName=@p.Name">@p.Name</a>
                             </span> @:&nbsp;
                         }
-
                     </div>
                 </div>
                 <div class="text-right">
@@ -69,7 +69,7 @@
             @if (Model.CurrentPage > 1)
             {
                 <li>
-                    <a href="/Posts/All/@(Model.CurrentPage - 1)?CategoryId=@Model.CategoryId" aria-label="Previous">
+                    <a href="/Posts/All/@(Model.CurrentPage - 1)?CategoryId=@Model.Attributes.CategoryId" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
@@ -82,12 +82,12 @@
                     className = "active";
                 }
 
-                <li class="@className"><a href="/Posts/All/@i?CategoryId=@Model.CategoryId">@i</a></li>
+                <li class="@className"><a href="/Posts/All/@i?CategoryId=@Model.Attributes.CategoryId">@i</a></li>
             }
             @if (Model.CurrentPage < Model.TotalPages)
             {
                 <li>
-                    <a href="/Posts/All/@(Model.CurrentPage + 1)?CategoryId=@Model.CategoryId" aria-label="Next">
+                    <a href="/Posts/All/@(Model.CurrentPage + 1)?CategoryId=@Model.Attributes.CategoryId" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>
@@ -103,7 +103,7 @@
     @using (Html.BeginForm("All", "Posts", FormMethod.Get))
     {
         <h2>Categories</h2>
-        @Html.DropDownListFor(m => m.CategoryId, Model.Categories)<br />
+        @Html.DropDownList("categoryId", Model.Attributes.Categories)<br />
         <input type="submit" value="Choose" class="btn btn-primary" />
     }
 }

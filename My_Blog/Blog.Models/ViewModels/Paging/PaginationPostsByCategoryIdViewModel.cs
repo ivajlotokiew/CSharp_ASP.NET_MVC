@@ -1,21 +1,15 @@
 ﻿namespace Blog.Models.ViewModels.Paging
 {
+    using Interfaces;
     using Posts;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.Web.Mvc;
 
-    public class PaginationPostsByCategoryIdViewModel
+    public class PaginationPostsByCategoryIdViewModel<T> : IPageable<T> where T : PostsByCategoryViewModel
     {
         public int CurrentPage { get; set; }
 
         public int TotalPages { get; set; }
 
-        public IEnumerable<PostsViewModel> Posts { get; set; }
+        public T Attributes { get; set; }
 
-        [Display(Name = "Categories")]
-        public int? CategoryId { get; set; }
-
-        public IEnumerable<SelectListItem> Categories { get; set; }
     }
 }

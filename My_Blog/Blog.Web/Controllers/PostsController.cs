@@ -37,13 +37,13 @@
             return File(image.Content, "image/" + image.FileExtension);
         }
 
-        public ActionResult All(int? CategoryId, int id = 1)
+        public ActionResult All(int? categoryId, int id = 1)
         {
             IEnumerable<PostsViewModel> posts;
             const int ItemsPerPage = 5;
-            if (CategoryId != null)
+            if (categoryId != null)
             {
-                posts = this.service.GetPostsByCategoryId(CategoryId);
+                posts = this.service.GetPostsByCategoryId(categoryId);
                 if (posts.Count() / (ItemsPerPage * id) < 1)
                 {
                     id = 1;
@@ -60,13 +60,19 @@
             var itemsToSkip = (page - 1) * ItemsPerPage;
             var postsVm = posts.Skip(itemsToSkip).Take(ItemsPerPage);
 
-            var viewModel = new PaginationPostsByCategoryIdViewModel
+
+            var postsCategory = new PostsByCategoryViewModel
+            {
+                Posts = postsVm,
+                Categories = this.service.GetAllCategories(),
+                CategoryId = categoryId
+            };
+
+            var viewModel = new PaginationPostsByCategoryIdViewModel<PostsByCategoryViewModel>
             {
                 CurrentPage = page,
                 TotalPages = (int)totalPages,
-                Posts = postsVm,
-                Categories = this.service.GetAllCategories(),
-                CategoryId = CategoryId
+                Attributes = postsCategory
             };
 
             return View(viewModel);
@@ -74,7 +80,7 @@
 
         public ActionResult Search(string tagName)
         {
-            PostsByTagViewModel vmModel = 
+            PostsByTagViewModel vmModel =
                 this.service.GetTagInfoByTagName(tagName);
 
             return this.View(vmModel);
