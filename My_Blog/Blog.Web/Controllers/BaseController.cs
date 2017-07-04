@@ -1,6 +1,7 @@
 ﻿namespace Blog.Web.Controllers
 {
     using Models.ViewModels.Posts;
+    using Models.ViewModels.Tags;
     using Services;
     using System.Collections.Generic;
     using System.Web.Mvc;
@@ -23,6 +24,14 @@
                 this.service.GetFirstFiveMostCommentedPosts();
 
             return this.PartialView("_PostsSortedByCommentsPartial", vmPosts);
+        }
+
+        public ActionResult MostPopularTags()
+        {
+            IEnumerable<TagsByPopularityViewModel> vmTags =
+                this.service.GetMostPopulareTags();
+
+            return this.PartialView("_FirstTenTagsByPopularityPartial", vmTags);
         }
     }
 }

@@ -7,6 +7,7 @@
     using Models.ViewModels.Area;
     using Models.ViewModels.Comment;
     using Models.ViewModels.Posts;
+    using Models.ViewModels.Tags;
     using System.Data.Entity;
     using System.Web.Mvc;
     using System.Web.Optimization;
@@ -43,7 +44,10 @@
                 .ForMember(m => m.GuestEmail, opt => opt.MapFrom(t => t.GuestAuthor.Email))
                 .ReverseMap();
                 expression.CreateMap<Tag, PostsByTagViewModel>()
-                .ReverseMap(); ;
+                .ReverseMap();
+                expression.CreateMap<Tag, TagsByPopularityViewModel>()
+                .ForMember(m => m.Name, opt => opt.MapFrom(t => t.Name))
+                .ReverseMap();
                 expression.CreateMap<AddPostViewModel, Post>()
                 .ReverseMap();
 

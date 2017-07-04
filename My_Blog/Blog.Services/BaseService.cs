@@ -9,6 +9,8 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
+    using Models.ViewModels.Tags;
+    using System;
 
     public class BaseService
     {
@@ -44,6 +46,19 @@
                 Mapper.Map<IEnumerable<PostsSortedByViewModel>>(dbPosts);
 
             return vmPosts;
+        }
+
+        public IEnumerable<TagsByPopularityViewModel> GetMostPopulareTags()
+        {
+            IEnumerable<Tag> dbTags = this.Context.Tags
+            .OrderByDescending(x => x.Posts.Count)
+            .Take(5)
+            .ToList();
+
+            IEnumerable<TagsByPopularityViewModel> vmTags =
+                Mapper.Map<IEnumerable<TagsByPopularityViewModel>>(dbTags);
+
+            return vmTags;
         }
 
         public IEnumerable<PostsSortedByViewModel> GetFirstFiveMostCommentedPosts()

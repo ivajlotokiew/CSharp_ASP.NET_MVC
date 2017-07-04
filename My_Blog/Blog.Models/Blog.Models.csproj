@@ -148,6 +148,7 @@
     <Compile Include="ViewModels\Posts\PostsByTagViewModel.cs" />
     <Compile Include="ViewModels\Posts\PostsSortedByViewModel.cs" />
     <Compile Include="ViewModels\Posts\PostsViewModel.cs" />
+    <Compile Include="ViewModels\Tags\TagsByPopularityViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

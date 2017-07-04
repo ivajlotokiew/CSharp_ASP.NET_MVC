@@ -17,6 +17,7 @@
             dbPost.Comments = orderedPostComments;
             dbPost.Views++;
             this.Context.SaveChanges();
+
             PostsViewModel vmPost = Mapper.Map<PostsViewModel>(dbPost);
 
             return vmPost;
